@@ -8,11 +8,11 @@ int main()
 
 	IntVector *v = int_vector_new(initial_capacity);
 	printf("Capacity = %d\nSize = %d\nData = %p\n", v->capacity, v->size, v->data);
-//	*v->data = 3;
-//	printf("%d\n", *v->data);
 	for(int i = 0; i < initial_capacity; i++){
-		*v->data = i;
-		printf("%d", *v->data);
+		v->data[i] = i;
+	}
+	for(int i = 0; i < initial_capacity; i++){
+		printf("%d", v->data[i]);
 	}
 	printf("\n");
 
