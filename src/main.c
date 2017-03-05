@@ -10,6 +10,11 @@ int main()
 	printf("Capacity = %d\nSize = %d\nData = %p\n", v->capacity, v->size, v->data);
 //	*v->data = 3;
 //	printf("%d\n", *v->data);
+	for(int i = 0; i < initial_capacity; i++){
+		*v->data = i;
+		printf("%d", *v->data);
+	}
+	printf("\n");
 
 	IntVector *copy_v = int_vector_copy(v);
 //	copy_v->data = malloc(sizeof(int) * initial_capacity);
