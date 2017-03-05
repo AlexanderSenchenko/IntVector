@@ -15,7 +15,7 @@ IntVector *int_vector_new(size_t initial_capacity){
 IntVector *int_vector_copy(const IntVector *v){
 	IntVector *copy_v = malloc(sizeof(IntVector));
 
-	*copy_v = *v;
+	copy_v = memcpy(copy_v, v, v->capacity);
 
 	return copy_v;
 }
