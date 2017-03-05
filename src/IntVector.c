@@ -23,3 +23,12 @@ void int_vector_free(IntVector *v){
 	free(v->data);
 	free(v);
 }
+
+int int_vector_get_item(const IntVector *v, size_t index){
+	int elem_index = v->data[index];
+	return elem_index;	
+}
+
+void int_vector_set_item(IntVector *v, size_t index, int item){
+	v->data[index] = item; 
+}
