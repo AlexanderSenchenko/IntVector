@@ -19,3 +19,7 @@ IntVector *int_vector_copy(const IntVector *v){
 
 	return copy_v;
 }
+
+void int_vector_free(IntVector *v){
+	free(v);
+}
