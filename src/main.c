@@ -3,11 +3,11 @@
 
 int main()
 {
-	size_t initial_capacity = 4;
-	IntVector *arr = NULL;
+	IntVector *v = int_vector_new(5);
+	printf("Capacity = %d\nSize = %d\nData = %p\n", v->capacity, v->size, v->data);
 
-	arr = int_vector_new(initial_capacity);
+	IntVector *copy_v = int_vector_copy(v);
+	printf("Capacity = %d\nSize = %d\nData = %p\n", copy_v->capacity, copy_v->size, copy_v->data);
 
-	printf("%d\n %d\n %p\n", arr -> capacity, arr -> size, arr -> data);
 	return 0;
 }

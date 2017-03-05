@@ -3,11 +3,19 @@
 #include <stdlib.h>
 
 IntVector *int_vector_new(size_t initial_capacity){
-	IntVector *arr = malloc(sizeof(IntVector));
+	IntVector *v = malloc(sizeof(IntVector));
 
-	arr -> data = malloc(sizeof(int) * initial_capacity);
-	arr -> size = 0;
-	arr -> capacity = initial_capacity;
+	v->data = malloc(sizeof(int) * initial_capacity);
+	v->size = 0;
+	v->capacity = initial_capacity;
 
-	return arr;	
+	return v;	
+}
+
+IntVector *int_vector_copy(const IntVector *v){
+	IntVector *copy_v = malloc(sizeof(IntVector));
+
+	*copy_v = *v;
+
+	return copy_v;
 }
