@@ -14,7 +14,7 @@ int main()
 		v->size++;
 	}
 	for(int i = 0; i < v->size; i++){
-		printf("%d", v->data[i]);
+		printf("%d ", v->data[i]);
 	}
 	printf("\n");
 	printf("Capacity = %d Size = %d Data = %p\n", v->capacity, v->size, v->data);
@@ -25,7 +25,7 @@ int main()
 	printf("Capacity = %d Size = %d Data = %p\n", copy_v->capacity, copy_v->size, copy_v->data);
 
 	for(int i = 0; i < copy_v->size; i++){
-		printf("%d", copy_v->data[i]);
+		printf("%d ", copy_v->data[i]);
 	}
 	printf("\n");
 
@@ -34,22 +34,24 @@ int main()
 
 	printf("Capacity = %d Size = %d Data = %p\n", v->capacity, v->size, v->data);
 	for(int i = 0; i < v->size; i++){
-		printf("%d", v->data[i]);
+		printf("%d ", v->data[i]);
 	}
 	printf("\n");
 
 	//int_vector_set_index
 	int index = 3;
-	int elem_index = int_vector_get_item(v, index);
-	printf("%d\n", elem_index);
+	printf("%d\n", int_vector_get_item(copy_v, index));
 
 	//int_vector_set_item
 	int item = 7;
-	int_vector_set_item(v, index, item);	
+	int_vector_set_item(copy_v, index, item);	
 	for(int i = 0; i < copy_v->size; i++){
-		printf("%d", copy_v->data[i]);
+		printf("%d ", copy_v->data[i]);
 	}
 	printf("\n");
+
+	//int_vector_get_size
+	printf("Size = %d\n", int_vector_get_size(copy_v));
 
 	return 0;
 }
