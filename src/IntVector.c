@@ -35,3 +35,7 @@ void int_vector_set_item(IntVector *copy_v, size_t index, int item){
 size_t int_vector_get_size(const IntVector *copy_v){
 	return copy_v->size;
 }
+
+size_t int_vector_get_capacity(const IntVector *copy_v){
+	return copy_v->capacity;
+}

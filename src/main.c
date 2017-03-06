@@ -53,5 +53,8 @@ int main()
 	//int_vector_get_size
 	printf("Size = %d\n", int_vector_get_size(copy_v));
 
+	//int_vector_get_capacity
+	printf("Capacity = %d\n", int_vector_get_capacity(copy_v));
+
 	return 0;
 }
