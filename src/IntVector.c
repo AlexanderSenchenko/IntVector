@@ -39,3 +39,16 @@ size_t int_vector_get_size(const IntVector *copy_v){
 size_t int_vector_get_capacity(const IntVector *copy_v){
 	return copy_v->capacity;
 }
+
+int int_vector_push_back(IntVector *copy_v, int item){
+	if (copy_v->capacity == copy_v->size){
+		copy_v->data = realloc(copy_v->data, sizeof(int) * copy_v->capacity * 2);
+		copy_v->capacity = copy_v->capacity * 2;
+		if (&copy_v->data[copy_v->size] == &copy_v->data[copy_v->capacity]){
+			return -1;
+		}
+	}
+	copy_v->data[copy_v->size++] = item;
+
+	return 0;	
+}
