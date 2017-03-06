@@ -122,5 +122,13 @@ int main()
 	}
 	printf("\n");
 
+//int_vector_reserve
+	printf("\tint_vector_reserve\n");
+
+	size_t new_capacity = 20;
+
+	printf("%d\n", int_vector_reserve(copy_v, new_capacity));
+	printf("Capacity = %d Size = %d Data = %p\n", copy_v->capacity, copy_v->size, copy_v->data);
+
 	return 0;
 }

@@ -81,3 +81,15 @@ int int_vector_resize(IntVector *copy_v, size_t new_size){
 
 	return 0;
 }
+
+int int_vector_reserve(IntVector *copy_v, size_t new_capacity){
+	if (new_capacity > copy_v->capacity){
+		copy_v->capacity = new_capacity;
+		copy_v->data = realloc(copy_v->data, sizeof(int) * copy_v->capacity);
+		if (copy_v->data == NULL){
+			return -1;
+		}
+	}
+
+	return 0;
+}
