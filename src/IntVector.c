@@ -44,7 +44,7 @@ int int_vector_push_back(IntVector *copy_v, int item){
 	if (copy_v->capacity == copy_v->size){
 		copy_v->data = realloc(copy_v->data, sizeof(int) * copy_v->capacity * 2);
 		copy_v->capacity = copy_v->capacity * 2;
-		if (&copy_v->data[copy_v->size] == &copy_v->data[copy_v->capacity]){
+		if (copy_v->data == NULL){
 			return -1;
 		}
 	}
@@ -52,3 +52,9 @@ int int_vector_push_back(IntVector *copy_v, int item){
 
 	return 0;	
 }
+
+void int_vector_pop_back(IntVector *copy_v){
+	copy_v->data[copy_v->size] = 0;
+	copy_v->size--;
+}
+

@@ -16,5 +16,6 @@ void int_vector_set_item(IntVector *copy_v, size_t index, int item);
 size_t int_vector_get_size(const IntVector *copy_v);
 size_t int_vector_get_capacity(const IntVector *copy_v);
 int int_vector_push_back(IntVector *copy_v, int item);
+void int_vector_pop_back(IntVector *v);
 
 #endif
