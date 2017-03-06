@@ -18,6 +18,6 @@ size_t int_vector_get_capacity(const IntVector *copy_v);
 int int_vector_push_back(IntVector *copy_v, int item);
 void int_vector_pop_back(IntVector *copy_v);
 int int_vector_shrink_to_fit(IntVector *copy_v);
-
+int int_vector_resize(IntVector *v, size_t new_size);
 
 #endif

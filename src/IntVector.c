@@ -65,3 +65,19 @@ int int_vector_shrink_to_fit(IntVector *copy_v){
 	}
 	return 0;
 }
+
+int int_vector_resize(IntVector *copy_v, size_t new_size){
+	if (new_size > copy_v->size){
+		for (int i = copy_v->size; i < new_size; i++){
+			copy_v->data[i] = 0;
+		}
+		copy_v->size = new_size;
+	} else if (new_size < copy_v->size){
+		copy_v->size = new_size;
+		return int_vector_shrink_to_fit(copy_v);
+	} else {
+		return 0;
+	}
+
+	return 0;
+}
