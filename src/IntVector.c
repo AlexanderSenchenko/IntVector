@@ -58,3 +58,10 @@ void int_vector_pop_back(IntVector *copy_v){
 	copy_v->size--;
 }
 
+int int_vector_shrink_to_fit(IntVector *copy_v){
+	copy_v->capacity = copy_v->size;
+	if (copy_v->capacity != copy_v->size){
+		return -1;
+	}
+	return 0;
+}

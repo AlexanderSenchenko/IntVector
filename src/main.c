@@ -71,13 +71,17 @@ printf("%d\n", int_vector_push_back(copy_v, item));
 	}
 	printf("\n");
 
-//void int_vector_pop_back
+//int_vector_pop_back
 	int_vector_pop_back(copy_v);
 	printf("Capacity = %d Size = %d Data = %p\n", copy_v->capacity, copy_v->size, copy_v->data);
 	for (int i = 0; i < copy_v->size + 1; i++){
 		printf("%d ", copy_v->data[i]);
 	}
 	printf("\n");
+
+//int vector shrinck to fit
+	printf("%d\n",int_vector_shrink_to_fit(copy_v));
+	printf("Capacity = %d Size = %d Data = %p\n", copy_v->capacity, copy_v->size, copy_v->data);
 
 	return 0;
 }
