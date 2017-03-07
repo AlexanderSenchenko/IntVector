@@ -41,7 +41,7 @@ size_t int_vector_get_capacity(const IntVector *copy_v){
 }
 
 int int_vector_push_back(IntVector *copy_v, int item){
-	if (copy_v->capacity == copy_v->size){
+	if (copy_v->capacity <= copy_v->size){
 		copy_v->data = realloc(copy_v->data, sizeof(int) * copy_v->capacity * 2);
 		copy_v->capacity = copy_v->capacity * 2;
 		if (copy_v->data == NULL){
@@ -69,7 +69,7 @@ int int_vector_shrink_to_fit(IntVector *copy_v){
 int int_vector_resize(IntVector *copy_v, size_t new_size){
 	if (new_size > copy_v->size){
 		for (int i = copy_v->size; i < new_size; i++){
-			copy_v->data[i] = 0;
+			
 		}
 		copy_v->size = new_size;
 	} else if (new_size < copy_v->size){
