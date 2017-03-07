@@ -4,14 +4,17 @@
 
 int main()
 {
-	size_t initial_capacity = 5;
+	size_t initial_capacity = 0;
 
 //int_vector_new
 	printf("\tint_vector_new\n");
 
 	IntVector *v = int_vector_new(initial_capacity);
-	
-	for (int i = 0; i < initial_capacity; i++){
+	if (v == NULL){
+		int_vector_free(v);
+	}
+
+	/*for (int i = 0; i < initial_capacity; i++){
 		v->data[i] = i;
 		v->size++;
 	}
@@ -19,24 +22,29 @@ int main()
 		printf("%d ", v->data[i]);
 	}
 	printf("\n");
-	printf("Capacity = %d Size = %d Data = %p\n", v->capacity, v->size, v->data);
+	printf("Capacity = %d Size = %d Data = %p\n", v->capacity, v->size, v->data);*/
 
 //int_vector_copy
 	printf("\tint_vector_copy\n");
 
 	IntVector *copy_v = int_vector_copy(v);
+	if (copy_v == NULL){
+		int_vector_free(copy_v);
+	}
 
-	printf("Capacity = %d Size = %d Data = %p\n", copy_v->capacity, copy_v->size, copy_v->data);
+	/*printf("Capacity = %d Size = %d Data = %p\n", copy_v->capacity, copy_v->size, copy_v->data);
 
 	for (int i = 0; i < copy_v->size; i++){
 		printf("%d ", copy_v->data[i]);
 	}
-	printf("\n");
+	printf("\n");*/
 
 //int_vector_free
 	printf("\tint_vector_free\n");
 
 	int_vector_free(v);
+
+	return 0;
 
 	printf("Capacity = %d Size = %d Data = %p\n", v->capacity, v->size, v->data);
 	for (int i = 0; i < v->size; i++){
@@ -65,12 +73,12 @@ int main()
 //int_vector_get_size
 	printf("\tint_vector_get_size\n");
 
-	printf("Size = %d\n", int_vector_get_size(copy_v));
+	printf("Size = %d\n", (int) int_vector_get_size(copy_v));
 
 //int_vector_get_capacity
 	printf("\tint_vector_get_capacity\n");
 
-	printf("Capacity = %d\n", int_vector_get_capacity(copy_v));
+	printf("Capacity = %d\n", (int) int_vector_get_capacity(copy_v));
 
 //int_vector_push_back
 	printf("\tint_vector_push_back\n");
