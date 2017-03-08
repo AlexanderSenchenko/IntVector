@@ -14,6 +14,7 @@ int main()
 		int_vector_free(v);
 	}
 
+
 	/*for (int i = 0; i < initial_capacity; i++){
 		v->data[i] = i;
 		v->size++;
@@ -44,31 +45,29 @@ int main()
 
 	int_vector_free(v);
 
-	return 0;
-
-	printf("Capacity = %d Size = %d Data = %p\n", v->capacity, v->size, v->data);
+/*	printf("Capacity = %d Size = %d Data = %p\n", v->capacity, v->size, v->data);
 	for (int i = 0; i < v->size; i++){
 		printf("%d ", v->data[i]);
 	}
-	printf("\n");
+	printf("\n");*/
 
-//int_vector_set_index
+//int_vector_set_index(no trable)
 	printf("\tint_vector_set_index\n");
 
 	int index = 3;
 	printf("%d\n", int_vector_get_item(copy_v, index));
 
-//int_vector_set_item
+//int_vector_set_item(no trable)
 	printf("\tint_vector_set_item\n");
 
 	int item = 7;
 
 	int_vector_set_item(copy_v, index, item);
 	
-	for (int i = 0; i < copy_v->size; i++){
+	/*for (int i = 0; i < copy_v->size; i++){
 		printf("%d ", copy_v->data[i]);
 	}
-	printf("\n");
+	printf("\n");*/
 
 //int_vector_get_size
 	printf("\tint_vector_get_size\n");
@@ -98,6 +97,8 @@ int main()
 		printf("%d ", copy_v->data[i]);
 	}
 	printf("\n");
+
+	return 0;
 
 //int_vector_pop_back(trable)
 	printf("\tint_vector_pop_back\n");

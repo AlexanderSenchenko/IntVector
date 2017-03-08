@@ -8,7 +8,7 @@ IntVector *int_vector_new(size_t initial_capacity){
 	if (v == NULL){
 		return NULL;
 	}
-	v->data = NULL; // malloc(sizeof(int) * initial_capacity);
+	v->data = malloc(sizeof(int) * initial_capacity);
 	if (v->data == NULL){
 		free(v);
 		return 0;
@@ -36,8 +36,10 @@ IntVector *int_vector_copy(const IntVector *v){
 
 void int_vector_free(IntVector *v){
 	// FIXME: test int_vector_free(NULL);
-	free(v->data);
-	free(v);
+	if (v != NULL){
+		free(v->data);
+		free(v);
+	}
 }
 
 int int_vector_get_item(const IntVector *copy_v, size_t index){
@@ -58,23 +60,36 @@ size_t int_vector_get_capacity(const IntVector *copy_v){
 
 int int_vector_push_back(IntVector *copy_v, int item){
 	// FIXME: allow push_back to vector with zero capacity
-	if (copy_v->capacity <= copy_v->size){
+	if (int_vector_get_capacity(copy_v) == 0){
+		copy_v->capacity = 1;
+	}
+	if (int_vector_get_capacity(copy_v) <= int_vector_get_size(copy_v)){
 		// FIXME: handle realloc fail
-		copy_v->data = realloc(copy_v->data, sizeof(int) * copy_v->capacity * 2);
-		copy_v->capacity = copy_v->capacity * 2;
-		if (copy_v->data == NULL){
+		IntVector *test = int_vector_copy(copy_v);
+		if (test == NULL){
+			int_vector_free(test);
 			return -1;
+			
+		}
+		test->data = realloc(test->data, sizeof(int) * int_vector_get_capacity(test) * 2);
+		if (test->data != NULL){
+			int_vector_free(test);
+			copy_v->capacity = int_vector_get_capacity(copy_v) * 2;
+			copy_v->data = realloc(copy_v->data, sizeof(int) * int_vector_get_capacity(copy_v));
 		}
 	}
-	copy_v->data[copy_v->size++] = item;
 
-	return 0;	
+	copy_v->data[int_vector_get_size(copy_v) + 1] = item;
+	copy_v->size = int_vector_get_size(copy_v) + 1;
+
+	return 0;
 }
 
 void int_vector_pop_back(IntVector *copy_v){
 	// TODO: handle zero sized vector
-	copy_v->data[copy_v->size] = 0;
-	copy_v->size--;
+	if (copy_v != NULL){
+		copy_v->size--;
+	}
 }
 
 int int_vector_shrink_to_fit(IntVector *copy_v){
