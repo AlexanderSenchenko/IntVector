@@ -68,49 +68,44 @@ int int_vector_push_back(IntVector *copy_v, int item){
 	if (int_vector_get_capacity(copy_v) == int_vector_get_size(copy_v)){
 		int *test = realloc(copy_v->data, sizeof(int) * int_vector_get_capacity(copy_v) * 2);
 		if (test == NULL){
-			free(test);
 			return -1;
 		}
 		copy_v->capacity = int_vector_get_capacity(copy_v) * 2;
-		copy_v->data = realloc(copy_v->data, sizeof(int) * int_vector_get_capacity(copy_v));
+		copy_v->data = test;
 	}
-
-	copy_v->data[int_vector_get_size(copy_v) + 1] = item;
+	copy_v->data[int_vector_get_size(copy_v)] = item;
 	copy_v->size = int_vector_get_size(copy_v) + 1;
 
 	return 0;
 }
 
 void int_vector_pop_back(IntVector *copy_v){
-	// TODO: handle zero sized vector
-	if (copy_v != NULL){
+	if (int_vector_get_size(copy_v) != 0){
 		copy_v->size--;
 	}
 }
 
 int int_vector_shrink_to_fit(IntVector *copy_v){
-	if (copy_v->capacity < copy_v->size){
-		copy_v->capacity = copy_v->size;
-		// FIXME: 
-		copy_v->data = realloc(copy_v->data, sizeof(int) * copy_v->capacity);
-		if (copy_v->data == NULL){
+	if (int_vector_get_capacity(copy_v) > int_vector_get_size(copy_v)){
+		int *test = realloc(copy_v->data, sizeof(int) * int_vector_get_size(copy_v));
+		if (test == NULL){
 			return -1;
 		}
-	}	
+		copy_v->data = test;
+	}
+	copy_v->capacity = int_vector_get_size(copy_v);
 	return 0;
 }
 
 int int_vector_resize(IntVector *copy_v, size_t new_size){
-	if (new_size > copy_v->size){
-		for (int i = copy_v->size; i < new_size; i++){
-			copy_v->data[i] = 0;
+	if (new_size > int_vector_get_size(copy_v)){
+		for (int i = int_vector_get_size(copy_v); i < new_size; i++){
+			if (int_vector_push_back(copy_v, 0) == -1){
+				return -1;
+			}
 		}
-		copy_v->size = new_size;
-	} else if (new_size < copy_v->size){
-		copy_v->size = new_size;
-		// FIXME: no need to call shrink_to_fit
-		return int_vector_shrink_to_fit(copy_v);
 	}
+	copy_v->size = new_size;
 	return 0;
 }
 
