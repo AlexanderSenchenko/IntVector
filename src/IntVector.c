@@ -3,7 +3,6 @@
 #include <stdlib.h>
 
 IntVector *int_vector_new(size_t initial_capacity){
-	// TODO: handle malloc error
 	IntVector *v = malloc(sizeof(IntVector));
 	if (v == NULL){
 		return NULL;
@@ -11,7 +10,7 @@ IntVector *int_vector_new(size_t initial_capacity){
 	v->data = malloc(sizeof(int) * initial_capacity);
 	if (v->data == NULL){
 		free(v);
-		return 0;
+		return NULL;
 	}
 	v->size = 0;
 	v->capacity = initial_capacity;
@@ -23,19 +22,18 @@ IntVector *int_vector_copy(const IntVector *v){
 	if (copy_v == NULL){
 		return NULL;
 	}
-	copy_v->data = malloc(sizeof(int) * v->capacity);
+	copy_v->data = malloc(sizeof(int) * int_vector_get_capacity(v));
 	if (copy_v->data == NULL){
 		free(copy_v);
-		return 0;
+		return NULL;
 	}
-	memcpy(copy_v->data, v->data, sizeof(int) * v->capacity);
-	copy_v->size = v->size;
-	copy_v->capacity = v->capacity;
+	memcpy(copy_v->data, v->data, sizeof(int) * int_vector_get_capacity(v));
+	copy_v->size = int_vector_get_size(v);
+	copy_v->capacity = int_vector_get_capacity(v);
 	return copy_v;
 }
 
 void int_vector_free(IntVector *v){
-	// FIXME: test int_vector_free(NULL);
 	if (v != NULL){
 		free(v->data);
 		free(v);
@@ -43,11 +41,16 @@ void int_vector_free(IntVector *v){
 }
 
 int int_vector_get_item(const IntVector *copy_v, size_t index){
-	return copy_v->data[index];
+	if (index < int_vector_get_capacity(copy_v)){
+		return copy_v->data[index];
+	}
+	return 0;
 }
 
 void int_vector_set_item(IntVector *copy_v, size_t index, int item){
-	copy_v->data[index] = item;
+	if (item < int_vector_get_capacity(copy_v)){
+		copy_v->data[index] = item;
+	}
 }
 
 size_t int_vector_get_size(const IntVector *copy_v){
@@ -59,24 +62,17 @@ size_t int_vector_get_capacity(const IntVector *copy_v){
 }
 
 int int_vector_push_back(IntVector *copy_v, int item){
-	// FIXME: allow push_back to vector with zero capacity
 	if (int_vector_get_capacity(copy_v) == 0){
 		copy_v->capacity = 1;
 	}
-	if (int_vector_get_capacity(copy_v) <= int_vector_get_size(copy_v)){
-		// FIXME: handle realloc fail
-		IntVector *test = int_vector_copy(copy_v);
+	if (int_vector_get_capacity(copy_v) == int_vector_get_size(copy_v)){
+		int *test = realloc(copy_v->data, sizeof(int) * int_vector_get_capacity(copy_v) * 2);
 		if (test == NULL){
-			int_vector_free(test);
+			free(test);
 			return -1;
-			
 		}
-		test->data = realloc(test->data, sizeof(int) * int_vector_get_capacity(test) * 2);
-		if (test->data != NULL){
-			int_vector_free(test);
-			copy_v->capacity = int_vector_get_capacity(copy_v) * 2;
-			copy_v->data = realloc(copy_v->data, sizeof(int) * int_vector_get_capacity(copy_v));
-		}
+		copy_v->capacity = int_vector_get_capacity(copy_v) * 2;
+		copy_v->data = realloc(copy_v->data, sizeof(int) * int_vector_get_capacity(copy_v));
 	}
 
 	copy_v->data[int_vector_get_size(copy_v) + 1] = item;
